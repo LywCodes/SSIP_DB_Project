@@ -7,8 +7,12 @@ CREATE TABLE store (
   	closing_time TIME,
   	store_password VARCHAR(50),
   	store_image VARCHAR(255),
+	store_availability VARCHAR(10),
   	CONSTRAINT PK_store PRIMARY KEY(store_id)
 );
+
+/*Klo udh run query nya sebelum update run command ini bawah*/
+-- ALTER TABLE store ADD store_availability VARCHAR(10); --
 
 CREATE TABLE product (
 	product_id INT AUTO_INCREMENT,
