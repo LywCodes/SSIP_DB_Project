@@ -21,11 +21,13 @@ CREATE TABLE product (
   	product_availability BIT,
   	product_image VARCHAR(255),
 	product_description VARCHAR(255),
+	product_name VARCHAR(255),
   	CONSTRAINT PK_product PRIMARY KEY(product_id),
   	CONSTRAINT FK_storeid_product FOREIGN KEY(store_id)
   	REFERENCES store(store_id)
 );
--- ALTER TABLE product ADD product_description VARCHAR(255); --
+-- ALTER TABLE product ADD product_description VARCHAR(255) --
+-- ALTER TABLE product ADD product_name VARCHAR(255); --
 
 CREATE TABLE customer(
 	customer_id INT AUTO_INCREMENT,
