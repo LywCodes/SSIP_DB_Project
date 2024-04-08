@@ -10,22 +10,23 @@
 <body>
     <div class="container">
         <div>
-            <form id="form" action="./home.html">
+            <form method="POST" id="form" action="./addCustomer.php">
             <h1>Welcome to PU eCanteen Service</h1>
             <div class="form-container">
                 <div class="sub-container-1">
-                    <input id="fullName" type="text" required>
+                    <input id="fullName" type="text" name="name" required>
                     <label for="name">Name : </label>
                 </div><br>
                 <div class="sub-container-1">
-                        <input id="phoneNo" type="tel" required>
+                        <input id="phoneNo" type="tel" name="phone" required>
                             <label for="phone">Phone No : </label>
                     </div>
                 </div><br><br>
-                <button type="submit" class="button" onclick="getData()">Next</button>
+                <button type="submit" class="button" name="submit">Next</button>
             </div> 
         </form>          
         </div>
     </div>
 </body>
 </html>
+
