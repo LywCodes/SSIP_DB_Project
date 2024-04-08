@@ -130,7 +130,7 @@
                 </thead>
                 <tbody id="menuTable">
                     <?php
-                        $connect = mysqli_connect("localhost", "root", "", "databaseproject");
+                        $connect = mysqli_connect("localhost", "root", "", "e_canteen");
                         if ($connect->connect_error) {
                             die("Connection failed: " . $connect->connect_error);
                         }
