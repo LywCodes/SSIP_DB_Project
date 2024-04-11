@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if(isset($_POST['submit'])){
         $name = $_POST["name"];
         $phone = $_POST["phone"];
@@ -12,7 +13,8 @@
         $conn->close();
 
         if($result){
-            header("Location: home.html");
+            $_SESSION["customer"] = $name;
+            header("Location: home.php");
         }
     }
 ?>

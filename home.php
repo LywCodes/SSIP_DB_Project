@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  if(!isset($_SESSION["customer"])){
+    header("Location: identification.html");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
