@@ -2,6 +2,7 @@
 
 body{
     overflow-x: hidden;
+    background-color: #C6EBC5;
 }
 .carousel-item{
     height: 29rem;
@@ -30,11 +31,39 @@ body{
 
 .card-deck{
     padding-left: 25px;
+    padding-right: 25px;
 }
 
 .card{
-    width: 320px;
-    padding: 20px 20px 20px 20px;
+    background-color: #FEFDED;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 26rem;
+    padding-top: 15px;
+}
+
+.card-body{
+    background-color: #FFDA77;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+p{
+    font-weight: bold;
+    font-family: "Poppins";
+}
+
+.divider-line {
+    border-top: 2px solid black; 
+}
+
+.card-img-top {
+    display: block;
+    margin: 0 auto;
+}
+
+.row-gap{
+    margin-bottom: 50px;
 }
 
 footer{
