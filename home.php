@@ -5,6 +5,12 @@
   }
 ?>
 
+<?php
+  include("config.php");
+  $query = "SELECT store_brand, store_id, opening_time, closing_time, store_image FROM store";
+  $result = mysqli_query($conn, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,23 +59,13 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="container">
-            <h1>Editor's Choice 2</h1>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit
-              suscipit cumque recusandae accusantium ex assumenda rem aperiam
-              voluptate. Repudiandae, impedit.
-            </p>
+          <div class="overlay-image">
+            <img src="./source/slide-2.png">
           </div>
         </div>
         <div class="carousel-item">
-          <div class="container">
-            <h1>Editor's Choice 3</h1>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit
-              suscipit cumque recusandae accusantium ex assumenda rem aperiam
-              voluptate. Repudiandae, impedit.
-            </p>
+        <div class="overlay-image">
+            <img src="./source/slide-3.png">
           </div>
         </div>
       </div>
@@ -94,84 +90,32 @@
 
     <div class="card-deck justify-content-center">
       <div class="row row-gap">
-        <div class="col-md-4">
-          <div class="card">
-            <img src="./source/card.png" class="card-img-top" style="width: 55%; height: auto;"  />
-            <div class="card-body divider-line">
-              <h3 class="card-title">Store I</h3>
-              <p class="card-text">
-                Operational Time : <br> 07.30 AM - 17.00 PM 
-              </p>
-              <a href="#" class="btn btn-primary btn-block">View Store</a>
-            </div>
-          </div>
+        <?php
+          if(mysqli_num_rows($result) > 0){
+            $count = 0;
+            while($row = mysqli_fetch_assoc($result)){
+              echo '<div class="col">';
+              echo '<div class="card">'; 
+              echo '<img src="./img/'. $row["store_image"] . '" class="card-img-top" style="max-width: 100%; max-height: 220px;"/>';
+              
+              echo '<div class="card-body divider-line">';
+              echo '<h3 class="card-title">' . $row["store_brand"] . '</h3>';
+              echo '<p class="card-text">Operational Time: <br>' . $row["opening_time"] . ' - ' . $row["closing_time"] . '</p>';
+              echo '<a href="menu.php?store_id='. $row["store_id"] . '" class="btn btn-primary btn-block">View Store</a>';
+              echo '</div></div></div>';
+              $count++;
+              if($count % 3 == 0){
+                echo '</div><div class="row row-gap">';
+              }
+            }
+          }else{
+            echo "0 Result";
+          }
+        ?>
         </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="./source/card.png" class="card-img-top" style="width: 55%; height: auto;"  />
-            <div class="card-body divider-line">
-              <h3 class="card-title">Store I</h3>
-              <p class="card-text">
-                Operational Time : <br> 07.30 AM - 17.00 PM 
-              </p>
-              <a href="#" class="btn btn-primary btn-block btn-no-padding">View Store</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="./source/card.png" class="card-img-top" style="width: 55%; height: auto;"  />
-            <div class="card-body divider-line">
-              <h3 class="card-title">Store I</h3>
-              <p class="card-text">
-                Operational Time : <br> 07.30 AM - 17.00 PM 
-              </p>
-              <a href="#" class="btn btn-primary btn-block">View Store</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row row-gap">
-        <div class="col-md-4">
-          <div class="card">
-            <img src="./source/card.png" class="card-img-top" style="width: 55%; height: auto;"  />
-            <div class="card-body divider-line">
-              <h3 class="card-title">Store I</h3>
-              <p class="card-text">
-                Operational Time : <br> 07.30 AM - 17.00 PM 
-              </p>
-              <a href="#" class="btn btn-primary btn-block">View Store</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="./source/card.png" class="card-img-top" style="width: 55%; height: auto;"  />
-            <div class="card-body divider-line">
-              <h3 class="card-title">Store I</h3>
-              <p class="card-text">
-                Operational Time : <br> 07.30 AM - 17.00 PM 
-              </p>
-              <a href="#" class="btn btn-primary btn-block">View Store</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="./source/card.png" class="card-img-top" style="width: 55%; height: auto;"  />
-            <div class="card-body divider-line">
-              <h3 class="card-title">Store I</h3>
-              <p class="card-text">
-                Operational Time : <br> 07.30 AM - 17.00 PM 
-              </p>
-              <a href="#" class="btn btn-primary btn-block">View Store</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <br /><br /><br />
+    <br>
     <footer>
       <br>
       <h6>© 2024 President University eCanteen Service</h6>

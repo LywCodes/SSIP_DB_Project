@@ -2,7 +2,7 @@
 
 body{
     overflow-x: hidden;
-    background-color: #C6EBC5;
+    background-color: #AFD198;
 }
 .carousel-item{
     height: 29rem;
@@ -29,21 +29,17 @@ body{
     background-repeat: no-repeat;
 }
 
-.card-deck{
-    padding-left: 25px;
-    padding-right: 25px;
-}
 
 .card{
     background-color: #FEFDED;
     border: 2px solid black;
     border-radius: 10px;
     width: 26rem;
-    padding-top: 15px;
+    padding: 0;
 }
 
 .card-body{
-    background-color: #FFDA77;
+    background-color: #ECCA9C;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -59,7 +55,7 @@ p{
 
 .card-img-top {
     display: block;
-    margin: 0 auto;
+    padding: 20px 20px 20px 20px;
 }
 
 .row-gap{
