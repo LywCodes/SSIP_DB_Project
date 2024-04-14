@@ -46,18 +46,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+ <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Produk</title>
+    <title>Product Input Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #495057;
+            background-image: url('./image/wallpaper.jpg');
+            
         }
 
         h2 {
+            padding-top: 30px;
             margin-bottom: 30px;
             color: #343a40;
             text-align: center;
@@ -70,6 +71,7 @@
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-color:black;
         }
 
         .form-control {
@@ -92,20 +94,24 @@
 
         .table-container {
             margin-top: 50px;
+            background-color: #ffffff;
         }
 
         table {
             width: 100%;
+            color: #343a40; /* Warna teks utama */
             border-collapse: collapse;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
         }
 
         th, td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
+            color: #343a40; /* Warna teks di dalam sel */
         }
 
         th {
@@ -116,52 +122,79 @@
         }
 
         tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        tr:hover {
-            background-color: #e9ecef;
+            background-color: #f8f9fa; 
+        
         }
 
         .delete-link {
-            color: #dc3545;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: background-color 0.3s;
+            display: inline-block;
         }
 
         .delete-link:hover {
-            color: #bd2130;
+            background-color: orange;
         }
-    </style>
+</style>
 </head>
 <body>
+<header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">>
+            <a class="navbar-brand" href="#"><img src="./source/logo.png" alt="Logo" style="position: absolute; top: 20px; left: 20px; width: 120px; height: auto;"</a>
+            <button class="navbar-toggler" type ="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 <div class="container">
-        <h2>Form Input Produk</h2>
+        <h2>Product Input Form</h2>
         <div class="row justify-content-center">
             <div class="col-md-6 form-container">
                 <form action="" method="post">
                     <div class="form-group">
-                        <label for="product_name">Nama Produk:</label>
+                        <label for="product_name">Product Name:</label>
                         <input type="text" class="form-control" id="product_name" name="product_name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="price">Harga:</label>
+                        <label for="price">Price:</label>
                         <input type="text" class="form-control" id="price" name="price" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="image">URL Gambar:</label>
+                        <label for="image">Picture URL:</label>
                         <input type="file" class="form-control-file" id="image" name="image">
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Deskripsi:</label>
+                        <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description" rows="4"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="availability">Ketersediaan:</label>
+                        <label for="availability">Availability:</label>
                         <select class="form-control" id="availability" name="availability">
                             <option value="In Stock">In Stock</option>
                             <option value="Out of Stock">Out of Stock</option>
@@ -174,6 +207,8 @@
                 </form>
             </div>
         </div>
+
+    <br>
 
 <?php
   $connect = mysqli_connect("localhost", "root", "", "e_canteen");
@@ -203,17 +238,17 @@
   $connect->close();
 ?>
 
-//delete part
+<br>
     <div class="table-container">
             <h2>Daftar Produk</h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Nama Produk</th>
-                        <th>Harga</th>
-                        <th>URL Gambar</th>
-                        <th>Deskripsi</th>
-                        <th>Ketersediaan</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Picture URL</th>
+                        <th>Description</th>
+                        <th>Availability</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -237,7 +272,10 @@
                         <td><?php echo $row['product_description']; ?></td>
                         <td><?php echo $row['product_availability']; ?></td>
                         <td>
-                            <a href="?delete_id=<?php echo $row['product_id']; ?>">Delete</a> 
+                        <a href="?delete_id=<?php echo $row['product_id']; ?>" class="delete-link" onclick="return confirm('Are you sure want to delete this?');">Delete</a>
+                            <br>
+                            <br>
+                            <a href="update.php?id=<?php echo $row['product_id']; ?>"class="delete-link" onclick="return confirm('Are you sure want to uppdate this?');">Update</a>
                         </td>
                     </tr>
                 <?php
@@ -248,9 +286,6 @@
             ?>
         </tbody>
     </table>
-    <td>
-        <a href="?delete_id=<?php echo $row['product_id']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">Delete</a>
-    </td>
 </body>
 
-</html>                   
+</html>
