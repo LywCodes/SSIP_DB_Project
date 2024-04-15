@@ -34,3 +34,26 @@ const menuItems = [
     });
   });
   
+
+  document.addEventListener("DOMContentLoaded", function() {
+    let cart = JSON.parse(sessionStorage.getItem("cart"));
+    let total = sessionStorage.getItem("total");
+
+    if (cart && total) {
+        let orderList = document.getElementById("orderList");
+        let totalPrice = document.getElementById("totalPrice");
+
+        // Tampilkan data keranjang belanja di halaman checkout
+        cart.forEach(item => {
+            let li = document.createElement("li");
+            li.textContent = `${item.name} - Rp ${item.price.toLocaleString()}`;
+            orderList.appendChild(li);
+        });
+
+        totalPrice.textContent = total.toLocaleString();
+    } else {
+        // Tampilkan pesan jika tidak ada data keranjang belanja
+        let container = document.querySelector(".container");
+        container.innerHTML = "<h2>Your cart is empty!</h2>";
+    }
+});
