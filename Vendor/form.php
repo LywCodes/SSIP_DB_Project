@@ -71,7 +71,7 @@
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            text-color:black;
+            color:black;
         }
 
         .form-control {
