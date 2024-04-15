@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php'; 
 
-$store_id = "0";
-$query = "SELECT * FROM product";
+$store_id = $_GET['store_id'];
+$query = "SELECT * FROM product where store_id = $store_id";
 $result = mysqli_query($conn, $query);
 
 ?>
@@ -90,14 +90,14 @@ $result = mysqli_query($conn, $query);
         function checkout(order) {
             var orderJson = JSON.stringify(order);
             var orderQueryParam = encodeURIComponent(orderJson);
-            var url = 'payment.html?order=' + orderQueryParam;
+            var url = 'payment.php?order=' + orderQueryParam;
             window.location.href = url;
         }
     </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" 
-    style="background-color:#003366">
+    style="background-color:#fcf2e8">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="./source/logo.png" alt="logo" height="45" />
@@ -145,7 +145,7 @@ $result = mysqli_query($conn, $query);
                 
                     if ($availability) {
                         echo '<div class="col-md-6 mb-4">';
-                        echo '<div class="card food-item rounded border-0">'; // Removed border
+                        echo '<div class="card food-item rounded border-0">'; 
                         echo '<img src="' . $row['product_image'] . '" class="card-img-top rounded" style="max-width: 200px; max-height: 169px; object-fit: cover;" alt="Food Image">';
                         echo '<div class="card-body">';
                         echo '<h5 class="card-title">' . $product_name . '</h5>';
