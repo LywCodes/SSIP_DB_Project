@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+
+<div class="container">
+    <div class="checkoutLayout">
+
+        
+        <div class="returnCart">
+            <a href="/">keep shopping</a>
+            <h1>List Product in Cart</h1>
+            <div class="list">
+
+                <div class="item">
+                    <img src="images/1.webp">
+                    <div class="info">
+                        <div class="name">PRODUCT 1</div>
+                        <div class="price">$22/1 product</div>
+                    </div>
+                    <div class="quantity">5</div>
+                    <div class="returnPrice">$433.3</div>
+                </div>
+
+            </div>
+        </div>
+
+        <form action="" class="checkoutForm">
+            <div class="right">
+                <h1>Checkout</h1>
+
+                
+                <div class="return">
+                    <div class="row">
+                        <div>Total Quantity</div>
+                        <div class="totalQuantity">70</div>
+                    </div>
+                    <div class="row">
+                        <div>Total Price</div>
+                        <div class="totalPrice">$900</div>
+                    </div>
+                </div>
+
+                <input type="radio" name="payment" id="visa">
+            <input type="radio" name="payment" id="mastercard">
+            <input type="radio" name="payment" id="paypal">
+            <input type="radio" name="payment" id="AMEX">
+
+
+            <div class="category">
+                <label for="visa" class="visaMethod">
+                    <div class="imgName">
+                        <div class="imgContainer visa">
+                            <img src="https://i.ibb.co/vjQCN4y/Visa-Card.png" alt="">
+                        </div>
+                        <span class="name">VISA</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+
+                <label for="mastercard" class="mastercardMethod">
+                    <div class="imgName">
+                        <div class="imgContainer mastercard">
+                            <img src="https://i.ibb.co/vdbBkgT/mastercard.jpg" alt="">
+                        </div>
+                        <span class="name">Mastercard</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+
+                <label for="paypal" class="paypalMethod">
+                    <div class="imgName">
+                        <div class="imgContainer paypal">
+                            <img src="https://i.ibb.co/KVF3mr1/paypal.png" alt="">
+                        </div>
+                        <span class="name">Paypal</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+
+                <label for="AMEX" class="amexMethod">
+                    <div class="imgName">
+                        <div class="imgContainer AMEX">
+                            <img src="https://i.ibb.co/wQnrX86/American-Express.jpg" alt="">
+                        </div>
+                        <span class="name">AMEX</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+            </div>
+
+                <button type="submit" class="buttonCheckout">CHECKOUT</button>
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="checkout.js"></script>
+
+</body>
+</html>
