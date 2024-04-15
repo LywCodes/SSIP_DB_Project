@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php'; 
 
-$store_id = "1";
+$store_id = "0";
 $query = "SELECT * FROM product";
 $result = mysqli_query($conn, $query);
 
