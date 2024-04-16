@@ -191,8 +191,8 @@
     <br>
     <footer>
       <br>
-      <h6>© 2024 President University eCanteen Service</h6>
-      <p>All Rights Reserved</p>
+      <center><h6>© 2024 President University eCanteen Service</h6></center>
+      <center><p>All Rights Reserved</p></center>
     </footer>
 
     <script

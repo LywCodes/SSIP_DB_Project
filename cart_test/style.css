@@ -550,3 +550,17 @@ input:checked + .payment-method-item::before {
     }
 }
 /* end: Breakpoints */
+
+/* *FOOTER */
+footer {
+    background-color: #e46110;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    width: 100%;
+}
+
+footer p {
+    font-size: 14px;
+}

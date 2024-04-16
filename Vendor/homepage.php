@@ -55,7 +55,7 @@
 <<<<<<< HEAD
             color: black;
 =======
-            background-image: url(../images/banner.jpg);
+            background-image: url(./images/banner.jpg);
             color: #fff;
 >>>>>>> 1b771377a521f7051a93e832b455d6a8b90150c4
             padding: 50px;
