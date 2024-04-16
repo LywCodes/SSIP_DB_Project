@@ -125,12 +125,12 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Picture URL</th>
-                    <th>Description</th>
-                    <th>Availability</th>
-                    <th>Action</th>
+                    <th><center>Product Name</center></th>
+                    <th><center>Price</center></th>
+                    <th><center>Picture URL</center></th>
+                    <th><center>Description</center></th>
+                    <th><center>Availability</center></th>
+                    <th><center>Action</center></th>
                 </tr>
             </thead>
     <?php 
@@ -139,13 +139,13 @@
     
         while ($row = $result->fetch_assoc()) {  
         echo "<tr>";
-        echo "<td>" . $row['product_name'] .  "</td>";
-        echo "<td>" . $row['product_price'] .  "</td>";
-        echo "<td><img src='../image/" . $row['product_image'] . "'alt='Product Image' width='200px'; heigth='200px'; ></td>";
-        echo "<td>" . $row['product_description'] .  "</td>";
-        echo "<td>" . $row['product_availability'] .  "</td>";
-        echo "<td> <a href='update.php?store_id=$row[store_id]'>Edit</a> 
-                <a href='deleteCourse.php?store_id=$row[store_id]' style='color:red;'>Delete</a> </td>";
+        echo "<td><center>" . $row['product_name'] .  "</center></td>" ;
+        echo "<td><center>" . $row['product_price'] .  "</center></td>";
+        echo "<td><center><img src='../image/" . $row['product_image'] . "'alt='Product Image' width='200px'; heigth='200px'; ></center></td>";
+        echo "<td><center>" . $row['product_description'] .  "</center></td>";
+        echo "<td><center>" . $row['product_availability'] .  "</center></td>";
+        echo "<td><center> <a href='update.php?store_id=$row[store_id]'>Edit</a> 
+                <a href='deleteCourse.php?store_id=$row[store_id]' style='color:red;'>Delete</a></center> </td>";
         echo "</tr>";
         }
     }else{
