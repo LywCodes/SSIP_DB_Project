@@ -74,12 +74,12 @@
                                 <label for="method-4" class="payment-method-item">
                                     <img src="images/master-card.png" alt="">
                                 </label>
-
+                    
                             </div>
                             <div class="payment-form-group">
-                                <input type="text" placeholder=" " class="payment-form-control" id="cvv">
-                                <label for="cvv" class="payment-form-label payment-form-label-required">Note for seller</label>
-                            </div>
+                                    <input type="text" placeholder=" " class="payment-form-control" id="cvv">
+                                    <label for="cvv" class="payment-form-label payment-form-label-required">CVV</label>
+                                </div>
                     </div>
                 </div>
                 <button type="submit" class="buttonCheckout">CHECKOUT</button>
