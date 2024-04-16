@@ -2,6 +2,7 @@
     include("config.php");
     if(isset($_POST["submit"])){
         $brand = $_POST["storeBrand"];
+        $password = $_POST["storePassword"];
         $openingTime = $_POST["openingTime"];
         $closingTime = $_POST["closingTime"];
         
@@ -19,8 +20,8 @@
         $newName = uniqid() . '.' . $imageExtension;
         move_uploaded_file($tmpName, 'img/' . $newName); 
 
-        $query = "INSERT INTO store (store_brand, opening_time, closing_time, store_image)
-                  VALUES ('$brand', '$openingTime', '$closingTime', '$newName')";
+        $query = "INSERT INTO store (store_brand, store_password, opening_time, closing_time, store_image)
+                  VALUES ('$brand', '$password', '$openingTime', '$closingTime', '$newName')";
         $result = mysqli_query($conn, $query);
         if ($result) {
             echo "Data inserted successfully.";
@@ -42,6 +43,8 @@
     <form class="" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
         <label for="storeBrand">Store Brand : </label>
         <input type="text" name="storeBrand"><br><br>
+        <label for="storePassword">Store Password : </label>
+        <input type="text" name="storePassword"><br><br>
         <label for="openingTime">Opening Time : </label>
         <input type="time" name="openingTime"><br><br>
         <label for="closingTime">Closing Time : </label>
