@@ -1,24 +1,18 @@
 <?php
+    include("../config.php");
 
- $connect = mysqli_connect("localhost", "root", "", "e_canteen");
- if (mysqli_connect_error()) {
-     die("Connection failed: " . mysqli_connect_error());
- }
-?>
-<?php
+    session_start();
+    if(!isset($_SESSION["store_id"])){
+        header("Location: homepage.php");
+      }
 //ini untuk submit button
    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
        $product_name = $_POST['product_name'];
        $price = $_POST['price'];
        $description = $_POST['description'];
-       $availability = $_POST['availability'];
-
-       $connect = mysqli_connect("localhost", "root", "", "e_canteen");
-       if (mysqli_connect_error()) {
-           die("Connection failed: " . mysqli_connect_error());
-       }
+       $store_id = $_SESSION['store_id'];
 //ini untuk foto2 product 
-       $target_pict = "image/";
+       $target_pict = "../image/";
        $fileNames = basename($_FILES["image"]["name"]);
        $target_file = $target_pict . $fileNames;
        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -26,10 +20,6 @@
        
        if (!isset($_FILES["image"]["tmp_name"])) {
            echo "File is not uploaded.";
-           exit();
-       }
-       if ($image_size > 500000) {
-           echo "Sorry, your file is too large.";
            exit();
        }
        if (!in_array($imageFileType, ["jpg", "jpeg", "png"])) {
@@ -41,17 +31,17 @@
            exit();
        }
 //ini untuk menggabungkan data2
-       $saveQuery = "INSERT INTO product (product_name, product_price, product_description, product_availability, product_image)
-           VALUES ('$product_name', '$price', '$description', '$availability', '$fileNames')";
+       $saveQuery = "INSERT INTO product (product_name, store_id, product_price, product_description, product_availability, product_image)
+           VALUES ('$product_name', '$store_id', '$price', '$description','1', '$fileNames')";
 
-       if (mysqli_query($connect, $saveQuery)) {
+       if (mysqli_query($conn, $saveQuery)) {
            echo "berhasil hehe";
-           header("Location: " . $_SERVER['PHP_SELF']);
+           header("Location: ./homepage.php");
      exit();
        } else {
            echo "Error: ";
        }
-       mysqli_close($connect);
+       mysqli_close($conn);
      }
      ?>
 
@@ -168,30 +158,19 @@ th {
     </style>
 </head>
 <body>
-<header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">>
-            <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="Logo" style="position: absolute; top: 20px; left: 20px; width: 120px; height: auto;"</a>
-            <button class="navbar-toggler" type ="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      style="background-color: #333"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="">
+          <img src="../source/logo.png" alt="logo" height="45" />
+        </a>    
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
 <div class="container">
         <h2>Product Input Form</h2>
         <div class="row justify-content-center">
@@ -217,107 +196,12 @@ th {
                         <textarea class="form-control" id="description" name="description" rows="4"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="availability">Availability:</label>
-                        <select class="form-control" id="availability" name="availability">
-                            <option value="In Stock">In Stock</option>
-                            <option value="Out of Stock">Out of Stock</option>
-                        </select>
-                    </div>
-
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
-
     <br>
-
-<?php
-  $connect = mysqli_connect("localhost", "root", "", "e_canteen");
-  if ($connect->connect_error) {
-      die("Connection failed: " . $connect->connect_error);
-  }
-
-  $sql = "SELECT * FROM product";
-  $result = $connect->query($sql);
-
-  if ($result->num_rows > 0) {
-?>
-  <table> 
-    <?php 
-    //ini table bersih dan rapih
-        while ($row = $result->fetch_assoc()) {  
-    ?>
-      <tr>
-        <td><?php echo $row['product_name']; ?></td>
-        <td><?php echo $row['product_price']; ?></td>
-        <td><?php echo $row['product_image']; ?></td>
-        <td><?php echo $row['product_description']; ?></td>
-        <td><?php echo $row['product_availability']; ?></td>
-      </tr>
-    <?php 
-        } 
-    ?>
-  </table>
-<?php 
-    }
-?>
-
-<?php
-  $connect->close();
-?>
-
-<br>
-    <div class="table-container">
-            <h2>Product List</h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Picture URL</th>
-                        <th>Description</th>
-                        <th>Availability</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-            <?php
-            $connect = mysqli_connect("localhost", "root", "", "e_canteen");
-            if ($connect->connect_error) {
-                die("Connection failed: " . $connect->connect_error);
-            }
-
-            $sql = "SELECT * FROM product";
-            $result = $connect->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    ?>
-                    <!--ini table kotor (untuk edit2)-->
-                    <tr>
-                        <td><?php echo $row['product_name']; ?></td>
-                        <td><?php echo $row['product_price']; ?></td>
-                        <td><img src="img/<?php echo $row['product_image']; ?>" alt="Product Image" width="200px"; heigth="200px"; ></td> 
-                        <td><?php echo $row['product_description']; ?></td>
-                        <td><?php echo $row['product_availability']; ?></td>
-                        <td>
-                        <a href="?delete_id=<?php echo $row['product_id']; ?>" class="delete-link" onclick="return confirm('Are you sure want to delete this?');">Delete</a>
-                            <br>
-                            <br>
-                            <a href="update.php?id=<?php echo $row['product_id']; ?>"class="delete-link" onclick="return confirm('Are you sure want to uppdate this?');">Update</a>
-                        </td>
-                    </tr>
-                <?php
-                }
-            } else {
-                echo "<tr><td colspan='6'>No records found</td></tr>";
-            }
-            ?>
-        </tbody>
-    </table>
 </body>
-
 </html>

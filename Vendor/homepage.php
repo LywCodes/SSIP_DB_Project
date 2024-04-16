@@ -1,9 +1,23 @@
+<?php
+    include("../config.php");
+    session_start();
+    if(!isset($_SESSION["store_id"])){
+    header("Location: vendorlogin.html");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -15,78 +29,46 @@
         body {
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            background-color: #f8f8f8;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;    
         }
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 1;
+        .table-container{
+            padding: 40px;
+            margin: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
+        table{
+            justify-content: center;
         }
 
-        header h1 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 28px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        nav ul {
-            list-style-type: none;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ffcc00;
+        thead{
+            color: white;
+            background-color: black;
         }
 
         .banner {
-            background-image: url(./image/wallpaper.jpg);
-            color: #fff;
+            color: black;
             padding: 50px;
             text-align: center;
-            border-bottom: 5px solid #ffcc00;
         }
 
         .banner h2 {
             font-size: 36px;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .btn {
             display: inline-block;
             background: #333;
             color: #fff;
-            padding: 12px 24px;
+            padding: 6px 24px;
             text-decoration: none;
             border-radius: 5px;
-            transition: background 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
@@ -94,32 +76,13 @@
             background: #555;
         }
 
-        .features {
-            display: flex;
-            justify-content: space-around;
-            padding: 50px 0;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
-        }
-
-        .feature:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 20px;
-            margin-top: 50px;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            margin-top: auto;
+            width: 100%;
         }
 
         footer p {
@@ -128,41 +91,65 @@
     </style>
 </head>
 <body>
-    <header>
-        <a class="navbar-brand" href="#"><img src="./source/logo.png" alt="Logo" style="position: absolute; top: 20px; left: 20px; width: 120px; height: auto;"></a>
-        <br>
-        <br>
-        <nav>
-            <ul>
-                <li><a href="#">Edit</a></li>
-                <li><a href="#">About PU e-canteen</a></li>
-                <li><a href="#">Develolper contact</a></li>
-                <li><a href="#">Privacy and policy</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      style="background-color: #333"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="">
+          <img src="../source/logo.png" alt="logo" height="45" />
+        </a>    
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="banner">
+        <h2>PU eCanteen Vendor Menu</h2>
+        <p>"Be a good seller, your food is your mirror"</p>
+    </div>
+    <br>
     
-    <section class="banner">
-        <h2>PU e-canteen Vendor</h2>
-        <p> be a good seller, your food is your mirror.</p>
-        <a href="form.php" class="btn">Edit</a>
-    </section>
+<?php
+    $sql = "SELECT * FROM product";
+    $result = $conn->query($sql);
+?> 
+
+<div class="table-container">
+    <h1>Product List</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Picture URL</th>
+                    <th>Description</th>
+                    <th>Availability</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+    <?php 
+    //ini table bersih dan rapih
+    if ($result->num_rows > 0) {
     
-    <section class="features">
-        <div class="feature">
-            <h3>Corner Store</h3>
-            <p> Edit your own store!.</p>
-        </div>
-        <div class="feature">
-            <h3>Warung Mamih</h3>
-            <p>Eat pricly pay cheaply.</p>
-        </div>
-        <div class="feature">
-            <h3>Day light store</h3>
-            <p>Lopen for 24 hours.</p>
-        </div>
-    </section>
-    
+        while ($row = $result->fetch_assoc()) {  
+        echo "<tr>";
+        echo "<td>" . $row['product_name'] .  "</td>";
+        echo "<td>" . $row['product_price'] .  "</td>";
+        echo "<td><img src='../image/" . $row['product_image'] . "'alt='Product Image' width='200px'; heigth='200px'; ></td>";
+        echo "<td>" . $row['product_description'] .  "</td>";
+        echo "<td>" . $row['product_availability'] .  "</td>";
+        echo "<td> <a href='update.php?store_id=$row[store_id]'>Edit</a> 
+                <a href='deleteCourse.php?store_id=$row[store_id]' style='color:red;'>Delete</a> </td>";
+        echo "</tr>";
+        }
+    }else{
+        echo "<tr><td colspan='6'>No records found</td></tr>";
+    }   
+    ?>
+    <td colspan='6'><a href="form.php" class="btn">Add Menu</a></td>
+  </table>
+</div>
     <footer>
         <p>&copy; <?php echo date("Y"); ?> Our Website. All rights reserved.</p>
     </footer>
