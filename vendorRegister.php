@@ -18,7 +18,7 @@
         }
     
         $newName = uniqid() . '.' . $imageExtension;
-        move_uploaded_file($tmpName, 'img/' . $newName); 
+        move_uploaded_file($tmpName, 'image/' . $newName); 
 
         $query = "INSERT INTO store (store_brand, store_password, opening_time, closing_time, store_image)
                   VALUES ('$brand', '$password', '$openingTime', '$closingTime', '$newName')";
