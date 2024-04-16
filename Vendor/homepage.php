@@ -66,7 +66,7 @@
         }
 
         .banner {
-            background-image: url(./image/wallpaper.jpg);
+            background-image: url(../images/banner.jpg);
             color: #fff;
             padding: 50px;
             text-align: center;
