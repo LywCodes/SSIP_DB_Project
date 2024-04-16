@@ -100,7 +100,7 @@ $result = mysqli_query($conn, $query);
     style="background-color:#fcf2e8">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="./source/logo.png" alt="logo" height="45" />
+                <img src="../source/logo.png" alt="logo" height="45" />
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
