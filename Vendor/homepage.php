@@ -36,6 +36,7 @@
         }
 
         .table-container{
+            padding-top: 20px;
             padding: 40px;
             margin: 20px;
             border: 2px solid black;
@@ -52,12 +53,14 @@
         }
 
         .banner {
-<<<<<<< HEAD
             color: black;
+<<<<<<< Updated upstream
 =======
             background-image: url(./images/banner.jpg);
             color: #fff;
 >>>>>>> 1b771377a521f7051a93e832b455d6a8b90150c4
+=======
+>>>>>>> Stashed changes
             padding: 50px;
             text-align: center;
         }
@@ -116,7 +119,8 @@
     <br>
     
 <?php
-    $sql = "SELECT * FROM product";
+    $store_id = $_SESSION["store_id"];
+    $sql = "SELECT * FROM product WHERE store_id = $store_id";
     $result = $conn->query($sql);
 ?> 
 
@@ -127,7 +131,7 @@
                 <tr>
                     <th><center>Product Name</center></th>
                     <th><center>Price</center></th>
-                    <th><center>Picture URL</center></th>
+                    <th><center>Product Image</center></th>
                     <th><center>Description</center></th>
                     <th><center>Availability</center></th>
                     <th><center>Action</center></th>
@@ -144,8 +148,11 @@
         echo "<td><center><img src='../image/" . $row['product_image'] . "'alt='Product Image' width='200px'; heigth='200px'; ></center></td>";
         echo "<td><center>" . $row['product_description'] .  "</center></td>";
         echo "<td><center>" . $row['product_availability'] .  "</center></td>";
-        echo "<td><center> <a href='update.php?store_id=$row[store_id]'>Edit</a> 
-                <a href='deleteCourse.php?store_id=$row[store_id]' style='color:red;'>Delete</a></center> </td>";
+        echo "<td><center> 
+        <a href='update.php?product_id=$row[product_id]' class='btn btn-primary btn-block' 
+        style='background-color:#04AA6D; width:50%'>Edit</a> 
+        <a href='delete.php?product_id=$row[product_id]' class='btn btn-primary btn-block' 
+        style='background-color:#f44336; width:50%' >Delete</a></center> </td>";
         echo "</tr>";
         }
     }else{
