@@ -1,28 +1,32 @@
 <?php
-$id = $_GET["id"]; 
-$connect = mysqli_connect("localhost", "root", "", "e_canteen");
-if ($connect->connect_error) {
-    die("Connection failed: " . $connect->connect_error);
-}
-if (isset($_POST['submit'])) {
-    $price = $_POST['Price'];
-    $availability = $_POST['Availability']; 
-    $updateQuery = mysqli_query($connect, "UPDATE product SET product_price = '$price', product_availability = '$availability' WHERE product_id = '$id'");
-    if ($updateQuery) {
-        header("Location: form.php");
-        exit();
-    } else {
-        echo "<p>Error: " . mysqli_error($connect) . "</p>";
+require ("../config.php");
+$id = $_GET["product_id"]; 
+
+if(isset($_GET['product_id'])) {
+    $product_id = $_GET['product_id'];
+    $result = mysqli_query($conn, "SELECT * FROM product WHERE product_id = '$product_id'");
+    
+    if(mysqli_num_rows($result) == 1) {
+        $product = mysqli_fetch_assoc($result);
     }
 }
 
-$result = mysqli_query($connect, "SELECT * FROM product WHERE product_id=$id");
-if ($result && mysqli_num_rows($result) > 0) {
-    $product = mysqli_fetch_assoc($result);
-    $price = $product['product_price']; 
-    $availability = $product['product_availability']; 
-} else {
-    echo "No product found with that ID.";
+if (isset($_POST['submit'])) {
+    $name = $_POST['productName'];
+    $price = $_POST['productPrice'];
+    $description = $_POST['description'];
+    $availability = ($_POST['availability']);
+    
+    $updateQuery = mysqli_query($conn, 
+                   "UPDATE product SET product_name = '$name', product_price = '$price', 
+                    product_description = '$description', product_availability = $availability WHERE product_id = '$id'");
+
+    if ($updateQuery) {
+        header("Location: ./homepage.php");
+        exit();
+    } else {
+        echo "<p>Error: " . mysqli_error($conn) . "</p>";
+    }
 }
 ?>
 
@@ -44,12 +48,13 @@ if ($result && mysqli_num_rows($result) > 0) {
             height: 100vh;
         }
         .container {
-            width: 400px;
+            width: 450px;
             background-color: #fff;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            box-sizing: border-box;
+            margin: 20px;
+            border: 2px solid black;
         }
         h1 {
             text-align: center;
@@ -96,7 +101,6 @@ if ($result && mysqli_num_rows($result) > 0) {
             padding: 10px 20px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-left: 10px;
             font-size: 16px;
         }
         .file-upload-btn:hover {
@@ -108,25 +112,31 @@ if ($result && mysqli_num_rows($result) > 0) {
     </style>
 </head>
 <body>
-<img src="./source/logo.png" alt="Logo" style="position: absolute; top: 20px; center: 50px; width: 200px; height: auto;">
     <div class="container">
+    <img src="../source/logo.png" alt="Logo" style="position: absolute; top: 20px; width: 200px; height: auto;">
+    <br><br><br><br><br><br>
         <h1>Update Product</h1>
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="Price">Price:</label>
-                <input type="text" id="Price" name="Price" placeholder="Enter price">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" value="<?php echo $product['product_name']?>">
             </div>
             <div class="form-group">
-                <label for="Picture">Picture:</label>
-                <input type="file" id="Picture" name="Picture" style="display: none;">
-                <label for="Picture" class="file-upload-btn">Upload Picture</label>
+                <label for="productPrice">Product Price:</label>
+                <input type="text" id="productPrice" name="productPrice" value="<?php echo $product['product_price']?>">
             </div>
             <div class="form-group">
-                <label for="Availability">Availability:</label>
-                <select id="Availability" name="Availability">
-                    <option value="In Stock">In Stock</option>
-                    <option value="Out of Stock">Out of Stock</option>
-                </select>
+                <label for="productDescription">Product Description:</label><br><br>
+                <textarea class="form-control" id="description" name="description" 
+                style="width: 400px; height:100px; resize:none;">
+                <?php echo $product['product_description']?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="availability">Availability:</label><br>
+                    <input type="radio" name="availability" value="b'1'" <?php if($product['product_availability'] == 1) echo "checked"; ?> required>
+                        <label>In Stock</label><br>
+                    <input type="radio" name="availability" value="b'0'" <?php if($product['product_availability'] == 0) echo "checked"; ?>>
+                        <label>Out Of Stock</label><br>
             </div>
             <input type="submit" name="submit" value="Update" />
         </form>

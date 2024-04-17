@@ -54,13 +54,6 @@
 
         .banner {
             color: black;
-<<<<<<< Updated upstream
-=======
-            background-image: url(./images/banner.jpg);
-            color: #fff;
->>>>>>> 1b771377a521f7051a93e832b455d6a8b90150c4
-=======
->>>>>>> Stashed changes
             padding: 50px;
             text-align: center;
         }
