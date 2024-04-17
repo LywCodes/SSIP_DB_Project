@@ -1,9 +1,14 @@
 <?php
 require_once '../config.php'; 
+session_start();
+if(!isset($_SESSION["customer"])){
+    header("Location: identification.html");
+  }
 
 $store_id = $_GET['store_id'];
-$query = "SELECT * FROM product where store_id = $store_id";
+$query = "SELECT * FROM product WHERE store_id = $store_id";
 $result = mysqli_query($conn, $query);
+$storeRes = mysqli_query($conn, "SELECT store_brand, store_id FROM store");
 
 ?>
 
@@ -42,6 +47,11 @@ $result = mysqli_query($conn, $query);
             bottom: 10px;
             right: 10px;
         }
+
+        ul li{
+            margin-right: 10px;
+        }
+
     </style>
     <script>
 
@@ -99,29 +109,30 @@ $result = mysqli_query($conn, $query);
     <nav class="navbar navbar-expand-lg" 
     style="background-color:#fcf2e8">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="home.php">
                 <img src="../source/logo.png" alt="logo" height="45" />
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Dropdown link
+                    <li class="btn-group">
+                        <a class="btn dropdown-toggle" style="background-color:#F7C566;" href="#" id="navbardrop" data-toggle="dropdown">
+                            Check Another Store
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Link 1</a>
-                            <a class="dropdown-item" href="#">Link 2</a>
-                            <a class="dropdown-item" href="#">Link 3</a>
+                            <?php
+                                if(mysqli_num_rows($storeRes) > 0){
+                                    while($row = mysqli_fetch_assoc($storeRes)){
+                                        echo '<a class="dropdown-item" href="menu.php?store_id='. $row["store_id"].'">' . $row["store_brand"] . '</a>';
+                                    }
+                                }
+                            ?>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dark Mode</a>
+                        <a class="btn btn-primary btn-block" style="background-color:#90D26D;" href="./home.php">Back To Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="btn btn-primary btn-block" style="background-color:#FA7070;" href="./logout.php">Log Out</a>
                     </li>
                 </ul>
             </div>
