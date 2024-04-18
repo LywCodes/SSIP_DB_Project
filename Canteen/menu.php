@@ -5,7 +5,10 @@ $query = "SELECT * FROM product where store_id = $store_id";
 $result = mysqli_query($conn, $query);
 session_start();
 $_SESSION['store_id'] = $store_id;
-
+if(!isset($_SESSION["customer"])){
+    header("Location: identification.html");
+  }
+  $storeRes = mysqli_query($conn, "SELECT store_brand, store_id FROM store");
 
 ?>
 
@@ -145,18 +148,19 @@ $_SESSION['store_id'] = $store_id;
 </head>
 <body>
     <div style="transition: right 1s;">
-    <nav class="navbar navbar-expand-lg" style="background-color:#fcf2e8">
-        <div class="container">
-            <a class="navbar-brand" href="home.php">
-                <img src="../source/logo.png" alt="logo" height="45" />
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="btn-group">
-                        <a class="btn dropdown-toggle" style="background-color:#F7C566;" href="#" id="navbardrop" data-toggle="dropdown">
+        <nav class="navbar navbar-expand-lg" 
+            style="background-color:#fcf2e8">
+            <div class="container">
+                <a class="navbar-brand" href="home.php">
+                    <img src="../source/logo.png" alt="logo" height="45" />
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="btn-group">
+                            <a class="btn dropdown-toggle" style="background-color:#F7C566;" href="#" id="navbardrop" data-toggle="dropdown">
                             Check Another Store
-                        </a>
-                        <div class="dropdown-menu">
+                            </a>
+                            <div class="dropdown-menu">
                             <?php
                                 if(mysqli_num_rows($storeRes) > 0){
                                     while($row = mysqli_fetch_assoc($storeRes)){
@@ -164,19 +168,22 @@ $_SESSION['store_id'] = $store_id;
                                     }
                                 }
                             ?>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary btn-block" style="background-color:#90D26D;" href="./home.php">Back To Home</a>
-                    </li>
-                    <li class="nav-item">
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-block" style="background-color:#90D26D;" href="./home.php">Back To Home</a>
+                        </li>
+                        <li class="nav-item">
                         <a class="btn btn-primary btn-block" style="background-color:#FA7070;" href="./logout.php">Log Out</a>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="iconCart" onclick="toggleCart()">
+                    <img src="../cart_test/icon.png" style="height:60px; width:60px;">
+                    <div class="totalQuantity">0</div>
+                </div>
             </div>
-        </div>
-    </nav>
-
+        </nav>
 
     
         <div class="container mt-5">

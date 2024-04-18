@@ -6,6 +6,9 @@ body {
     background-attachment: fixed; 
     background-position: center; 
 }
+ul li{
+    margin-right: 10px;
+}
 .container{
     width: 1200px;
     margin: auto;
