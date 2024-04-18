@@ -9,12 +9,14 @@
         $result = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($result, "ss", $name, $phone);
         $result->execute();
-        $result->close();
-        $conn->close();
 
         if($result){
             $_SESSION["customer"] = $name;
+            $customer_id = mysqli_insert_id($conn);
+            $_SESSION["customer_id"] = $customer_id;
             header("Location: home.php");
         }
+        $conn->close();
+        $result->close();
     }
 ?>
