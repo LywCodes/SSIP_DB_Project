@@ -1,3 +1,12 @@
+<?php
+    require_once ("../config.php");
+    $orderJSON = $_GET['order'];
+    $orderArray = json_decode(urldecode($orderJSON), true);
+    $total_item = 0;
+    $total_price = 0;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,21 +27,49 @@
             <a href="index.html">keep shopping</a>
             <h1>List Product in Cart</h1>
             <div class="list">
+                <?php
+                    foreach ($orderArray as $orderItem) {
+                        // Get product details from the database
+                        $productId = $orderItem['product_id'];
+                        $quantity = $orderItem['quantity'];
+                    
+                        // Query to retrieve product details
+                        $sql = "SELECT product_name, product_image, product_price FROM product WHERE product_id = $productId";
+                        $result = mysqli_query($conn, $sql);
+                    
+                        // Check if the query was successful
+                        if ($result) {
+                            // Fetch the row
+                            $row = mysqli_fetch_assoc($result);
 
-                <div class="item">
-                    <img src="images/1.webp">
-                    <div class="info">
-                        <div class="name">PRODUCT 1</div>
-                        <div class="price">$22/1 product</div>
-                    </div>
-                    <div class="quantity">5</div>
-                    <div class="returnPrice">$433.3</div>
-                </div>
+                            // Extract product details
+                            $productName = $row['product_name'];
+                            $productImage = $row['product_image'];
+                            $productPrice = $row['product_price'];
+                            $productTotal = $productPrice * $quantity;
+                        
+                            // Output the HTML for the item
+                            echo '<div class="item">';
+                            echo '<img src="../images/' . $productImage . '">';
+                            echo '<div class="info">';
+                            echo '<div class="name">' . $productName . '</div>';
+                            echo '<div class="price">' . $productPrice . ' per item</div>';
+                            echo '</div>';
+                            echo '<div class="quantity">' . $quantity . '</div>';
+                            echo '<div class="returnPrice">' . $productTotal . '</div>';
+                            echo '</div>';
+                            $total_item += $quantity;
+                            $total_price += $productTotal;
+                        } else {
+                            echo "Error: " . mysqli_error($conn);
+                        }
+                    }
+                ?>
 
             </div>
         </div>
 
-        <form action="" class="checkoutForm">
+        <form action="data_insert.php" class="checkoutForm" method="POST">
             <div class="right">
                 <h1>Checkout</h1>
 
@@ -40,11 +77,11 @@
                 <div class="return">
                     <div class="row">
                         <div>Total Quantity</div>
-                        <div class="totalQuantity">70</div>
+                        <div class="totalQuantity"><?php echo ($total_item); ?></div>
                     </div>
                     <div class="row">
                         <div>Total Price</div>
-                        <div class="totalPrice">$900</div>
+                        <div class="totalPrice"><?php echo ($total_price); ?></div>
                     </div>
                 </div>
 
@@ -55,42 +92,46 @@
                         
                             <h1 class="payment-title">Payment Details</h1>
                             <div class="payment-method">
-                                <input type="radio" name="payment-method" id="method-1" checked>
+                                <input type="radio" name="payment-method" id="method-1" value="QRIS" checked>
                                 <label for="method-1" class="payment-method-item">
                                     <img src="./images/QRIS.png" alt="">
                                 </label>
 
-                                <input type="radio" name="payment-method" id="method-2">
+                                <input type="radio" name="payment-method" id="method-2" value="BCA">
                                 <label for="method-2" class="payment-method-item">
                                     <img src="images/BCA.png" alt="">
                                 </label>
 
-                                <input type="radio" name="payment-method" id="method-3">
+                                <input type="radio" name="payment-method" id="method-3" value="Mandiri">
                                 <label for="method-3" class="payment-method-item">
                                     <img src="images/mandiri.png" alt="">
                                 </label>
 
-                                <input type="radio" name="payment-method" id="method-4">
+                                <input type="radio" name="payment-method" id="method-4" value="Master-card">
                                 <label for="method-4" class="payment-method-item">
                                     <img src="images/master-card.png" alt="">
                                 </label>
                     
                             </div>
+                            <h3 class="payment-title">Seat</h3>
                             <div class="payment-form-group">
-                                    <input type="text" placeholder=" " class="payment-form-control" id="cvv">
-                                    <label for="cvv" class="payment-form-label payment-form-label-required">CVV</label>
-                                </div>
+                                <input type="text" placeholder=" " class="payment-form-control" id="cvv" style="padding: 7px 16px" name="seat">
+                                <label for="cvv" class="payment-form-label payment-form-label-required">Put your seat location</label>
+                            </div>
+                            <h3 class="payment-title">Notes:</h3>
+                            <div class="payment-form-group">
+                                <input type="text" placeholder=" " class="payment-form-control" id="cvv" name="note">
+                                <label for="cvv" class="payment-form-label payment-form-label-required">Note for seller</label>
+                            </div>
                     </div>
                 </div>
-                <button type="submit" class="buttonCheckout">CHECKOUT</button>
-                
+                <input type="hidden" name="order" value="<?php echo htmlspecialchars(json_encode($orderJSON)); ?>">
+                <input type="hidden" name="total" value="<?php echo $total_price; ?>">
+                <button type="submit" name="submit" class="buttonCheckout">CHECKOUT</button>
             </div>
         </form>
     </div>
 </div>
-
-
-<script src="checkout.js"></script>
 
 </body>
 </html>
