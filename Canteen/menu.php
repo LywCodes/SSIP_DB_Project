@@ -110,7 +110,7 @@ if(!isset($_SESSION["customer"])){
             }
             if (!productExists) {
                 var newItem = '<div class="item" id=item-' + id + '>';
-                newItem += '<img src="' + image + '">';
+                newItem += '<img src="../image/' + image + '">';
                 newItem += '<div class="content">';
                 newItem += '<div class="name">' + name + '</div>';
                 newItem += '<div class="price">$' + price + ' per order</div>';
