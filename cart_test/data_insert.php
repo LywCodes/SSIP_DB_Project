@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
         $sql = "INSERT INTO payment (order_id, total_price, payment_status)
                 VALUES ('$order_id', '$total_price', 'finished')";
         mysqli_query($conn, $sql);
-        header("Location: ../canteen/home.php");
+        header("Location: paymentSuccess.php");
         exit();
     } else {
         echo "Error: " . mysqli_error($conn);
