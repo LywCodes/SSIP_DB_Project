@@ -231,7 +231,8 @@ if(!isset($_SESSION["customer"])){
             CART
         </h2>
         <div class="listCart">
-            <div class="item">
+            <!--  ini ilangin aja soalnya bug -->
+            <!-- <div class="item">
                 <img src="../cart_test/images/1.webp">
                 <div class="content">
                     <div class="name">CoPilot / Black / Automatic</div>
@@ -242,7 +243,7 @@ if(!isset($_SESSION["customer"])){
                     <span class="value">3</span>
                     <button>+</button>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="buttons">
             <div class="close" style="color: #E8bc0e; text-shadow:none;" onclick="toggleCart()">CLOSE</div>
