@@ -59,7 +59,7 @@
     <script>
         setTimeout(function(){
             window.location.href = "../Canteen/home.php";
-        }, 1500);
+        }, 2000);
 
     </script>
 </body>

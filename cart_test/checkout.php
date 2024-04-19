@@ -127,7 +127,7 @@
                 </div>
                 <input type="hidden" name="order" value="<?php echo htmlspecialchars(json_encode($orderJSON)); ?>">
                 <input type="hidden" name="total" value="<?php echo $total_price; ?>">
-                <button type="submit" name="submit" class="buttonCheckout">CHECKOUT</button>
+                <button onclick="window.location.href = 'paymentSuccess.php'" type="submit" name="submit" class="buttonCheckout">CHECKOUT</button>
             </div>
         </form>
     </div>
