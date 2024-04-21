@@ -50,7 +50,7 @@
                         
                             // Output the HTML for the item
                             echo '<div class="item">';
-                            echo '<img src="../images/' . $productImage . '">';
+                            echo '<img src="../image/' . $productImage . '">';
                             echo '<div class="info">';
                             echo '<div class="name">' . $productName . '</div>';
                             echo '<div class="price">' . $productPrice . ' per item</div>';
