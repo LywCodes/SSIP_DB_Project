@@ -49,9 +49,9 @@
                             $productTotal = $productPrice * $quantity;
                         
                             // Output the HTML for the item
-                            echo '<div class="item">';
-                            echo '<img src="../image/' . $productImage . '">';
-                            echo '<div class="info">';
+                            echo '<div class="item" style="overflow: hidden; padding-left: 0;">';
+                            echo '<img class="rounded" style="max-width: 120%; max-height: 100%; object-fit: cover;" src="../image/' . $productImage . '">';
+                            echo '<div class="info" style=" padding-left: 5%;">';
                             echo '<div class="name">' . $productName . '</div>';
                             echo '<div class="price">' . $productPrice . ' per item</div>';
                             echo '</div>';
@@ -115,7 +115,7 @@
                             </div>
                             <h3 class="payment-title">Seat</h3>
                             <div class="payment-form-group">
-                                <input type="text" placeholder=" " class="payment-form-control" id="cvv" style="padding: 7px 16px" name="seat">
+                                <input type="text" placeholder=" " class="payment-form-control" id="cvv" style="padding: 21px 16px 7px 16px" name="seat">
                                 <label for="cvv" class="payment-form-label payment-form-label-required">Put your seat location</label>
                             </div>
                             <h3 class="payment-title">Notes:</h3>

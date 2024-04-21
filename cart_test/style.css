@@ -3,6 +3,9 @@ body{
     overflow-x: hidden;
     font-synthesis: 15px;
 }
+.rounded {
+    border-radius: .25rem !important;
+}
 a{
     text-decoration: none;
 }
