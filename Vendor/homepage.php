@@ -131,7 +131,7 @@
                 </tr>
             </thead>
     <?php 
-    //ini table bersih dan rapih
+    //ini table
     if ($result->num_rows > 0) {
     
         while ($row = $result->fetch_assoc()) {  
