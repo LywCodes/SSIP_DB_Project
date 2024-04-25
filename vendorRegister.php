@@ -3,6 +3,7 @@
     if(isset($_POST["submit"])){
         $brand = $_POST["storeBrand"];
         $password = $_POST["storePassword"];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $openingTime = $_POST["openingTime"];
         $closingTime = $_POST["closingTime"];
         
@@ -21,7 +22,7 @@
         move_uploaded_file($tmpName, 'image/' . $newName); 
 
         $query = "INSERT INTO store (store_brand, store_password, opening_time, closing_time, store_image)
-                  VALUES ('$brand', '$password', '$openingTime', '$closingTime', '$newName')";
+                  VALUES ('$brand', '$hashedPassword', '$openingTime', '$closingTime', '$newName')";
         $result = mysqli_query($conn, $query);
         if (!$result) {
             echo "Error: " . mysqli_error($conn);
